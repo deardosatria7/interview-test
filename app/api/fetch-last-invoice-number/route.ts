@@ -12,7 +12,7 @@ export async function GET() {
 
     // Jika tidak ada data, return default invoice number
     if (!lastInvoice?.invoiceNumber) {
-      return NextResponse.json({ invoiceNumber: "INV/00001" });
+      return NextResponse.json({ invoiceNumber: "INV/00000" });
     }
 
     return NextResponse.json({

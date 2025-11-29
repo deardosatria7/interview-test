@@ -7,10 +7,15 @@ import axios from "axios";
 import { toast } from "sonner";
 import { InvoiceFormValues } from "@/lib/types";
 import { Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function NewInvoiceForm() {
   const [lastInvoiceNumber, setLastInvoiceNumber] = useState("");
-
+  const [loadingStates, setLoadingStates] = useState({
+    fetchingLastInvoice: true,
+    submittingInvoice: false,
+  });
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -59,6 +64,8 @@ export default function NewInvoiceForm() {
       } catch (error) {
         console.error(error);
         toast.error("Failed to fetch last invoice number!");
+      } finally {
+        setLoadingStates((prev) => ({ ...prev, fetchingLastInvoice: false }));
       }
     }
 
@@ -69,8 +76,18 @@ export default function NewInvoiceForm() {
   // Handle Submit
   // ======================
   const onSubmit = async (data: InvoiceFormValues) => {
-    console.log("DATA TO SUBMIT:", data);
-    alert("Invoice created! (dummy)");
+    try {
+      setLoadingStates((prev) => ({ ...prev, submittingInvoice: true }));
+      const response = await axios.post("/api/invoice-crud", data);
+
+      return toast.success(response.data.message);
+    } catch (error) {
+      console.error(error);
+      return toast.error("Terjadi kesalahan menyimpan invoice!");
+    } finally {
+      setLoadingStates((prev) => ({ ...prev, submittingInvoice: false }));
+      router.refresh();
+    }
   };
 
   return (
@@ -84,12 +101,18 @@ export default function NewInvoiceForm() {
           <div>
             <label className="font-medium">Invoice Number</label>
             <input
+              value={
+                loadingStates.fetchingLastInvoice
+                  ? "Loading..."
+                  : lastInvoiceNumber
+              }
               {...register("invoiceNumber", {
                 required: "Invoice number is required",
               })}
               readOnly
-              className="border w-full px-3 py-2 mt-1 rounded bg-gray-100"
+              className="border w-full px-3 py-2 mt-1 rounded bg-gray-100 text-sm"
             />
+
             {errors.invoiceNumber && (
               <p className="text-red-500 text-sm">
                 {errors.invoiceNumber.message}
@@ -99,7 +122,9 @@ export default function NewInvoiceForm() {
 
           {/* Invoice Date */}
           <div>
-            <label className="font-medium">Invoice Date</label>
+            <label className="font-medium">
+              Invoice Date<span className="text-red-500">*</span>
+            </label>
             <input
               type="date"
               {...register("invoiceDate", {
@@ -117,7 +142,9 @@ export default function NewInvoiceForm() {
 
         {/* Client Name */}
         <div>
-          <label className="font-medium">Client Name</label>
+          <label className="font-medium">
+            Client Name<span className="text-red-500">*</span>
+          </label>
           <input
             {...register("customerName", {
               required: "Client name is required",
@@ -133,7 +160,9 @@ export default function NewInvoiceForm() {
 
         {/* Client Address */}
         <div>
-          <label className="font-medium">Client Address</label>
+          <label className="font-medium">
+            Client Address<span className="text-red-500">*</span>
+          </label>
           <textarea
             {...register("clientAddress", {
               required: "Client address is required",
@@ -151,7 +180,9 @@ export default function NewInvoiceForm() {
         <div className="grid grid-cols-2 gap-6">
           {/* Issue Date */}
           <div>
-            <label className="font-medium">Issue Date</label>
+            <label className="font-medium">
+              Issue Date<span className="text-red-500">*</span>
+            </label>
             <input
               type="date"
               {...register("issueDate", { required: "Issue date is required" })}
@@ -164,7 +195,9 @@ export default function NewInvoiceForm() {
 
           {/* Due Date */}
           <div>
-            <label className="font-medium">Due Date</label>
+            <label className="font-medium">
+              Due Date<span className="text-red-500">*</span>
+            </label>
             <input
               type="date"
               {...register("dueDate", { required: "Due date is required" })}
@@ -172,6 +205,29 @@ export default function NewInvoiceForm() {
             />
             {errors.dueDate && (
               <p className="text-red-500 text-sm">{errors.dueDate.message}</p>
+            )}
+          </div>
+
+          {/* Status */}
+          <div>
+            <label className="font-medium">
+              Status<span className="text-red-500">*</span>
+            </label>
+            <select
+              {...register("status", {
+                required: "Wajib diisi",
+              })}
+              className="border w-full px-3 py-2 mt-1 rounded bg-white"
+            >
+              <option value="">-- Pilih Status --</option>
+              <option value="Draft">Draft</option>
+              <option value="Sent">Sent</option>
+              <option value="Paid">Paid</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+
+            {errors.status && (
+              <p className="text-red-500 text-sm">{errors.status.message}</p>
             )}
           </div>
         </div>
@@ -233,6 +289,7 @@ export default function NewInvoiceForm() {
                           required: "Required",
                         })}
                         className="w-full px-2 py-1 border rounded"
+                        onWheel={(e) => e.currentTarget.blur()}
                       />
                       {errors.invoiceItems?.[index]?.quantity && (
                         <p className="text-red-500 text-xs">
@@ -250,6 +307,7 @@ export default function NewInvoiceForm() {
                           required: "Required",
                         })}
                         className="w-full px-2 py-1 border rounded"
+                        onWheel={(e) => e.currentTarget.blur()}
                       />
                       {errors.invoiceItems?.[index]?.price && (
                         <p className="text-red-500 text-xs">
@@ -260,7 +318,7 @@ export default function NewInvoiceForm() {
 
                     {/* Total */}
                     <td className="border p-2 text-right">
-                      Rp {itemTotal.toLocaleString()}
+                      {itemTotal.toLocaleString("ID-id")}
                     </td>
 
                     {/* Delete */}
@@ -285,7 +343,7 @@ export default function NewInvoiceForm() {
           <div className="inline-block text-left">
             <div className="font-medium">Total Amount</div>
             <div className="text-2xl font-semibold">
-              {totalAmount.toLocaleString()}
+              Rp {totalAmount.toLocaleString("ID-id")}
             </div>
           </div>
         </div>
@@ -293,9 +351,10 @@ export default function NewInvoiceForm() {
         {/* Submit */}
         <button
           type="submit"
+          disabled={loadingStates.submittingInvoice}
           className="w-full py-3 mt-6 bg-green-600 text-white rounded text-lg"
         >
-          Save Invoice
+          {loadingStates.submittingInvoice ? "Saving..." : "Save Invoice"}
         </button>
       </form>
     </div>

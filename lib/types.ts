@@ -35,6 +35,7 @@ export interface InvoiceItemForm {
 }
 
 export interface InvoiceFormValues {
+  invoiceId?: string;
   invoiceNumber: string;
   customerName: string;
   clientAddress: string;

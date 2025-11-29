@@ -11,7 +11,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <div>
+      <div className="max-w-6xl mx-auto py-4 px-2">
         <InvoiceTable invoices={data}></InvoiceTable>{" "}
       </div>
     </>
