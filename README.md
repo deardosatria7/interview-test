@@ -6,14 +6,29 @@ Anda dapat melihat hasil pekerjaan yang telah saya selesaikan pada tautan beriku
 
 👉 **https://fungsitama.zenio.id/**
 
-(tautan ini akan diperbarui setelah deployment final tersedia)
+> Catatan: Tautan ini akan diperbarui setelah deployment final tersedia.
 
 ## Setup Project
 
-1. Download zip repository berikut
-2. Membuat file .env yang berisikan DATABASE_URL='postgre_url_anda'
-3. Jalankan:
+Ikuti langkah-langkah berikut untuk menjalankan project secara lokal:
+
+1. Download/clone repository ini
+2. Buat file baru .env yang berisikan DATABASE_URL
+
+   ```bash
+   DATABASE_URL='postgresql_url'
+   ```
+
+3. Jalankan beberapa perintah di bawah ini
+
+   ```bash
+   # Install packages
    npm install
+
+   # Generate database baru sesuai schema
    npx drizzle-kit generate
    npx drizzle-kit push
+
+   # Jalankan project
    npm run dev
+   ```
