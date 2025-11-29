@@ -23,6 +23,7 @@ export default function NewInvoiceForm() {
     setValue,
     formState: { errors },
     watch,
+    reset,
   } = useForm<InvoiceFormValues>({
     defaultValues: {
       invoiceNumber: "",
@@ -80,7 +81,11 @@ export default function NewInvoiceForm() {
       setLoadingStates((prev) => ({ ...prev, submittingInvoice: true }));
       const response = await axios.post("/api/invoice-crud", data);
 
-      return toast.success(response.data.message);
+      toast.success("Invoice berhasil disimpan!", {
+        description: "Halaman ini akan di refresh otomatis...",
+      });
+      reset();
+      setTimeout(() => window.location.reload(), 2000);
     } catch (error) {
       console.error(error);
       return toast.error("Terjadi kesalahan menyimpan invoice!");
