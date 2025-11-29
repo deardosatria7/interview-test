@@ -44,8 +44,6 @@ export default function EditInvoiceForm({
   );
 
   const onSubmit = async (formData: InvoiceFormValues) => {
-    console.log("Submitted response:", formData);
-
     try {
       setLoadingStates((prev) => ({ ...prev, submittingInvoice: true }));
       const response = await axios.put(`/api/invoice-crud`, formData);
