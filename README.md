@@ -32,3 +32,11 @@ Ikuti langkah-langkah berikut untuk menjalankan project secara lokal:
    # Jalankan project
    npm run dev
    ```
+
+## Fitur-fitur yang ada
+Berikut adalah beberapa fitur yang terdapat dalam aplikasi ini:
+- Input invoice baru, edit data invoice, dan hapus invoice (basic CRUD). 
+- Pengecekan validasi data disisi frontend dengan react-hook-form, dan di backend dengan zod.
+- Toast notifikasi ketika user melakukan input, edit, atau hapus invoice.
+- Fitur cetak faktur PDF.
+- Fitur pencarian berdasarkan invoice number. 
