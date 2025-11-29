@@ -91,7 +91,7 @@ export default function NewInvoiceForm() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 space-y-6">
+    <div className="max-w-5xl mx-auto p-6 space-y-6 border rounded-lg shadow-md">
       <h1 className="text-2xl font-semibold mb-6">Create New Invoice</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

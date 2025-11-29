@@ -61,7 +61,7 @@ export default function EditInvoiceForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 ">
       {/* Top Row */}
       <div className="grid grid-cols-2 gap-6">
         {/* Invoice Number */}

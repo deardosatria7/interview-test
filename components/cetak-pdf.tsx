@@ -4,24 +4,36 @@ import { InvoiceWithItems } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import jsPDF from "jspdf";
 import { autoTable } from "jspdf-autotable";
+import { Printer } from "lucide-react";
+
+interface InvoicePDFButtonProps {
+  invoice: InvoiceWithItems;
+  buttonSize?: "small" | "normal"; // tambah props
+}
 
 export default function InvoicePDFButton({
   invoice,
-}: {
-  invoice: InvoiceWithItems;
-}) {
+  buttonSize = "normal",
+}: InvoicePDFButtonProps) {
   const generatePDF = () => {
-    const doc = new jsPDF();
+    const doc = new jsPDF("l", "mm", "a5"); // portrait, mm, A5
+    const pageWidth = doc.internal.pageSize.getWidth();
 
     // ======================
     // Header
     // ======================
     doc.setFontSize(22);
-    doc.setTextColor("#333333");
+    doc.setTextColor("#1e3a8a"); // navy-blue header
+    doc.setFont("helvetica", "bold");
     doc.text("INVOICE", 14, 20);
 
-    doc.setFontSize(12);
-    doc.setTextColor("#555555");
+    doc.setLineWidth(0.5);
+    doc.setDrawColor(200);
+    doc.line(14, 23, pageWidth - 14, 23); // garis bawah header
+
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor("#333333");
     doc.text(`Invoice No: ${invoice.invoiceNumber}`, 14, 30);
     doc.text(
       `Issue Date: ${new Date(invoice.issueDate).toLocaleDateString("id-ID")}`,
@@ -38,16 +50,35 @@ export default function InvoicePDFButton({
     // ======================
     // Client Info Box
     // ======================
-    doc.setDrawColor(0);
-    doc.setFillColor(240, 240, 240);
-    doc.rect(120, 30, 70, 25, "FD"); // x, y, width, height, Fill+Draw
+    const clientBoxX = 120;
+    const clientBoxY = 30;
+    const clientBoxWidth = pageWidth - clientBoxX - 14;
+    const clientBoxHeight = 25;
+
+    doc.setFillColor(240, 248, 255); // light blue
+    doc.roundedRect(
+      clientBoxX,
+      clientBoxY,
+      clientBoxWidth,
+      clientBoxHeight,
+      3,
+      3,
+      "FD"
+    );
     doc.setTextColor("#000000");
-    doc.text(`Client: ${invoice.clientName}`, 122, 38);
-    doc.text(`Address: ${invoice.clientAddress}`, 122, 44);
+    doc.setFont("helvetica", "bold");
+    doc.text(`Client: ${invoice.clientName}`, clientBoxX + 2, clientBoxY + 7);
+    doc.setFont("helvetica", "normal");
+    doc.text(
+      `Address: ${invoice.clientAddress}`,
+      clientBoxX + 2,
+      clientBoxY + 13
+    );
+    doc.setFont("helvetica", "bold");
     doc.text(
       `Total: Rp ${Number(invoice.totalAmount).toLocaleString("id-ID")}`,
-      122,
-      50
+      clientBoxX + 2,
+      clientBoxY + 19
     );
 
     // ======================
@@ -64,11 +95,17 @@ export default function InvoicePDFButton({
         `Rp ${Number(item.lineTotal).toLocaleString("id-ID")}`,
       ]),
       headStyles: {
-        fillColor: [41, 128, 185],
+        fillColor: [30, 58, 138],
         textColor: 255,
         fontStyle: "bold",
       },
-      styles: { fontSize: 10 },
+      styles: {
+        fontSize: 10,
+        cellPadding: 3,
+      },
+      alternateRowStyles: {
+        fillColor: [245, 245, 245],
+      },
       columnStyles: {
         1: { halign: "center" },
         2: { halign: "right" },
@@ -81,19 +118,32 @@ export default function InvoicePDFButton({
     // Footer Total
     // ======================
     const finalY = (doc as any).lastAutoTable?.finalY || startY + 20;
-    doc.setFontSize(12);
+    const footerWidth = pageWidth - 28;
+
+    doc.setFillColor(230, 230, 250); // light lavender
+    doc.roundedRect(14, finalY + 5, footerWidth, 10, 2, 2, "F");
     doc.setFont("helvetica", "bold");
+    doc.setTextColor("#1e3a8a");
     doc.text(
       `TOTAL: Rp ${Number(invoice.totalAmount).toLocaleString("id-ID")}`,
-      150,
-      finalY + 10,
+      pageWidth - 16,
+      finalY + 13,
       { align: "right" }
     );
 
     doc.save(`Invoice-${invoice.invoiceNumber}.pdf`);
   };
 
-  return (
+  return buttonSize === "small" ? (
+    <Button
+      variant="default"
+      size="icon"
+      onClick={generatePDF}
+      title="Cetak PDF"
+    >
+      <Printer size={16} />
+    </Button>
+  ) : (
     <Button className="mt-4" onClick={generatePDF}>
       Cetak PDF
     </Button>

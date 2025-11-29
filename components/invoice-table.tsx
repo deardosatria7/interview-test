@@ -25,6 +25,7 @@ import { convertInvoiceWithItemsToInvoiceFormValues } from "@/lib/functions";
 import axios from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import InvoicePDFButton from "./cetak-pdf";
 
 export default function InvoiceTable({
   invoices,
@@ -123,11 +124,12 @@ export default function InvoiceTable({
                   </Button>
                   <Button
                     className="hover:text-green-600"
-                    variant={"secondary"}
+                    variant={"outline"}
                     onClick={() => handleEditClick(inv)}
                   >
                     <Pencil size={18} />
                   </Button>
+                  <InvoicePDFButton invoice={inv} buttonSize="small" />
                   <Button
                     className="hover:text-black"
                     variant={"destructive"}
@@ -144,7 +146,7 @@ export default function InvoiceTable({
 
       {/* Edit Invoice Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="w-full max-h-[90vh] overflow-y-auto">
+        <DialogContent className="w-full md:max-w-[80%] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Edit Invoice</DialogTitle>
           </DialogHeader>
@@ -159,7 +161,7 @@ export default function InvoiceTable({
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <DialogContent className="w-[400px]">
+        <DialogContent className="w-xl">
           <DialogHeader>
             <DialogTitle>Hapus Invoice?</DialogTitle>
           </DialogHeader>
