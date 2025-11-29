@@ -108,6 +108,7 @@ export default function EditInvoiceForm({
             required: "Client name is required",
           })}
           className="border w-full px-3 py-2 mt-1 rounded"
+          placeholder="e.g. Max Verstappen"
         />
         {errors.customerName && (
           <p className="text-red-500 text-sm">{errors.customerName.message}</p>
@@ -124,6 +125,7 @@ export default function EditInvoiceForm({
             required: "Client address is required",
           })}
           className="border w-full px-3 py-2 mt-1 rounded h-24"
+          placeholder="Input address here"
         />
         {errors.clientAddress && (
           <p className="text-red-500 text-sm">{errors.clientAddress.message}</p>
@@ -216,6 +218,7 @@ export default function EditInvoiceForm({
                         required: "Required",
                       })}
                       className="w-full px-2 py-1 border rounded"
+                      placeholder="Item name"
                     />
                     {errors.invoiceItems?.[index]?.description && (
                       <p className="text-red-500 text-xs">

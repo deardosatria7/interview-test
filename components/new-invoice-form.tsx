@@ -150,6 +150,7 @@ export default function NewInvoiceForm() {
               required: "Client name is required",
             })}
             className="border w-full px-3 py-2 mt-1 rounded"
+            placeholder="e.g. Max Verstappen"
           />
           {errors.customerName && (
             <p className="text-red-500 text-sm">
@@ -168,6 +169,7 @@ export default function NewInvoiceForm() {
               required: "Client address is required",
             })}
             className="border w-full px-3 py-2 mt-1 rounded h-24"
+            placeholder="Input address here"
           />
           {errors.clientAddress && (
             <p className="text-red-500 text-sm">
@@ -272,6 +274,7 @@ export default function NewInvoiceForm() {
                           required: "Required",
                         })}
                         className="w-full px-2 py-1 border rounded"
+                        placeholder="Item name"
                       />
                       {errors.invoiceItems?.[index]?.description && (
                         <p className="text-red-500 text-xs">
