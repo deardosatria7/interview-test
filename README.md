@@ -15,6 +15,14 @@ Anda dapat melihat hasil pekerjaan yang telah saya selesaikan pada tautan beriku
 
 (tautan ini akan diperbarui setelah deployment final tersedia)
 
+## Setup Project
+
+1. Download zip repository berikut
+2. Membuat file .env yang berisikan DATABASE_URL='postgre_url_anda'
+3. Jalankan:
+   npx drizzle-kit generate
+   npx drizzle-kit push
+
 ## Penutup
 
 Saya akan terus berupaya menyempurnakan project ini ke depannya dan terbuka terhadap masukan, evaluasi, maupun kritik dari pihak terkait.
