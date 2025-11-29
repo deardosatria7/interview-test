@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# README
 
-## Getting Started
+## Permohonan Maaf
 
-First, run the development server:
+Dengan segala hormat, saya ingin menyampaikan permohonan maaf karena **belum dapat menyelesaikan project ini secara keseluruhan** sesuai dengan rencana awal.  
+Terdapat beberapa fitur dan komponen yang belum berhasil saya implementasikan akibat keterbatasan waktu serta beberapa kendala teknis yang belum dapat saya selesaikan tepat waktu.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Meskipun demikian, saya tetap mengumpulkan project ini sebagai bentuk pertanggungjawaban dan agar progres yang sudah ada tetap dapat diperiksa.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Progress yang Sudah Dikerjakan
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Anda dapat melihat hasil pekerjaan yang telah saya selesaikan pada tautan berikut:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+👉 **https://fungsitama.zenio.id/**
 
-## Learn More
+(tautan ini akan diperbarui setelah deployment final tersedia)
 
-To learn more about Next.js, take a look at the following resources:
+## Penutup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Saya akan terus berupaya menyempurnakan project ini ke depannya dan terbuka terhadap masukan, evaluasi, maupun kritik dari pihak terkait.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Terima kasih atas pengertiannya.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Hormat saya,  
+**Deardo Satria**
