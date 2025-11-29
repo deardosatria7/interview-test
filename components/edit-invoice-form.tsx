@@ -290,6 +290,7 @@ export default function EditInvoiceForm({
       <button
         type="submit"
         className="w-full py-3 mt-6 bg-green-600 text-white rounded text-lg"
+        disabled={loadingStates.submittingInvoice}
       >
         {loadingStates.submittingInvoice ? "Saving..." : "Save Invoice"}
       </button>
