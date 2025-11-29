@@ -20,8 +20,10 @@ Anda dapat melihat hasil pekerjaan yang telah saya selesaikan pada tautan beriku
 1. Download zip repository berikut
 2. Membuat file .env yang berisikan DATABASE_URL='postgre_url_anda'
 3. Jalankan:
+   npm install
    npx drizzle-kit generate
    npx drizzle-kit push
+   npm run dev
 
 ## Penutup
 
