@@ -32,7 +32,7 @@ export function convertInvoiceWithItemsToInvoiceFormValues(
     invoiceDate: formatDateToYYYYMMDD(data.createdAt),
     issueDate: data.issueDate,
     dueDate: data.dueDate,
-    status: data.status,
+    status: data.status as "Draft" | "Sent" | "Paid" | "Cancelled",
     invoiceItems: data.invoiceItems.map((item) => ({
       description: item.description,
       quantity: item.quantity,

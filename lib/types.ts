@@ -42,6 +42,6 @@ export interface InvoiceFormValues {
   invoiceDate: string;
   issueDate: string;
   dueDate: string;
-  status: string;
+  status: "Draft" | "Sent" | "Paid" | "Cancelled";
   invoiceItems: InvoiceItemForm[];
 }

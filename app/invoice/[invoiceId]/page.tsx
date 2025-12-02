@@ -12,7 +12,7 @@ import {
 import { InvoiceWithItems } from "@/lib/types";
 import { notFound } from "next/navigation";
 import BackButton from "@/components/back-button";
-import InvoicePDFButton from "@/components/cetak-pdf";
+import InvoicePDFButton from "@/components/invoice/cetak-pdf";
 
 export default async function InvoicePage({
   params,

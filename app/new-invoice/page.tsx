@@ -1,5 +1,5 @@
 import BackButton from "@/components/back-button";
-import NewInvoiceForm from "@/components/new-invoice-form";
+import NewInvoiceForm from "@/components/invoice/new-invoice-form";
 
 export default function NewInvoicePage() {
   return (
